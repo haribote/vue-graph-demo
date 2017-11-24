@@ -8,12 +8,15 @@ const sourceMapEnabled = isProduction
 
 
 module.exports = {
-  loaders: utils.cssLoaders({
-    sourceMap: sourceMapEnabled,
-    extract: isProduction
-  }),
+  loaders: Object.assign({},
+    utils.cssLoaders({
+      sourceMap: sourceMapEnabled,
+      extract: isProduction
+    }),
+    { ts: 'ts-loader!tslint-loader' }
+  ),
   cssSourceMap: sourceMapEnabled,
-  cacheBusting: config.dev.cacheBusting, 
+  cacheBusting: config.dev.cacheBusting,
   transformToRequire: {
     video: 'src',
     source: 'src',

@@ -3,7 +3,7 @@ import App from './components/App/app.vue'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
+/* tslint:disable-next-line:no-unused-expression */
 new Vue({
   el: '#app',
   render: h => h(App)
