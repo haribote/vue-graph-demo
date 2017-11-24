@@ -1,0 +1,9 @@
+{
+  "name": "vue-graph-demo",
+  "version": "1.0.0",
+  "description": "Demos of graph that render by Vue.js without D3.js.",
+  "repository": "git@github.com:haribote/vue-graph-demo.git",
+  "author": "KIMURA Tetsuro <haribote.nobody@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
