@@ -8,6 +8,7 @@
     <div class="container">
       <h2>Line chart</h2>
       <p>Under constructing...</p>
+      <TabList :labels="lineChartTabLabels" @click-item="handleClickLineChartTabItem" />
     </div>
 
     <div class="container">
