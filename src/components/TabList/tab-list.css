@@ -1,0 +1,48 @@
+.tab-list {
+  margin-top: 25px;
+  border-bottom: 1px solid;
+}
+
+.tab-list ul {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 0;
+  margin-left: 0;
+  margin-bottom: -1px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  list-style: none;
+}
+
+.tab-list li,
+.tab-list li a {
+  display: block;
+  box-sizing: border-box;
+}
+
+.tab-list li.is-current a {
+  padding-top: 1.4rem;
+  padding-bottom: calc(1.4rem + 1px);
+  border-bottom: 0 none;
+  border-right: 1px solid;
+}
+
+.tab-list li a {
+  min-width: 10rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  background: #fff;
+}
+
+.tab-list li:last-of-type a {
+  border-right: 1px solid;
+}
+
+.tab-list li.is-current + li a {
+  border-left: 0 none;
+}
