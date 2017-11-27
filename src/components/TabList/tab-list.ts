@@ -23,6 +23,7 @@ export default Vue.extend({
   methods: {
     handleClickItem (index: number): void {
       this.current = Math.max(0, Math.min(index, this.labels.length - 1))
+      this.$emit('click-item', index)
     }
   }
 })

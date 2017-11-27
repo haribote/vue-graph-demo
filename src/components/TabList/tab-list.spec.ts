@@ -55,4 +55,14 @@ describe('TabList.vue', () => {
     expect(wrapper.vm.current)
       .to.equal(1)
   })
+
+  it('should emit `click-item` event', () => {
+    wrapper.vm.handleClickItem(1)
+
+    expect(wrapper.emitted()['click-item'].length)
+      .to.equal(1)
+
+    expect(wrapper.emitted()['click-item'][0])
+      .to.deep.equal([1])
+  })
 })
