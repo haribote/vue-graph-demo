@@ -1,0 +1,12 @@
+{
+  "leagues": [
+    {
+      "id": 0,
+      "name": "Pacific League"
+    },
+    {
+      "id": 1,
+      "name": "Central League"
+    }
+  ]
+}
