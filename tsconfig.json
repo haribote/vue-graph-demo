@@ -5,7 +5,13 @@
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "noImplicitThis": true
+    "noImplicitThis": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "es2015.promise"
+    ]
   },
   "include": [
     "./src/**/*.ts"
