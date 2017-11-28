@@ -1,0 +1,76 @@
+{
+  "teams": [
+    {
+      "id": 0,
+      "name": "Chiba Lotte Marines",
+      "color": "#000000",
+      "league": 0
+    },
+    {
+      "id": 1,
+      "name": "Chunichi Dragons",
+      "color": "#003595",
+      "league": 1
+    },
+    {
+      "id": 2,
+      "name": "Fukuoka SoftBank Hawks",
+      "color": "#FBC700",
+      "league": 0
+    },
+    {
+      "id": 3,
+      "name": "Hanshin Tigers",
+      "color": "#FFE100",
+      "league": 1
+    },
+    {
+      "id": 4,
+      "name": "Hiroshima Toyo Carp",
+      "color": "#E50012",
+      "league": 1
+    },
+    {
+      "id": 5,
+      "name": "Hokkaido Nippon-Ham Fighters",
+      "color": "#00508F",
+      "league": 0
+    },
+    {
+      "id": 6,
+      "name": "ORIX Buffaloes",
+      "color": "#202030",
+      "league": 0
+    },
+    {
+      "id": 7,
+      "name": "Saitama Seibu Lions",
+      "color": "#0079c2",
+      "league": 0
+    },
+    {
+      "id": 8,
+      "name": "Tohoku Rakuten Golden Eagles",
+      "color": "#870010",
+      "league": 0
+    },
+    {
+      "id": 9,
+      "name": "Tokyo Yakult Swallows",
+      "color": "#96c800",
+      "league": 1
+    },
+    {
+      "id": 10,
+      "name": "Yokohama DeNA BayStars",
+      "color": "#0052CD",
+      "league": 1
+    },
+    {
+      "id": 11,
+      "name": "Yomiuri Giants",
+      "color": "#FF7820",
+      "league": 1
+    }
+  ]
+}
