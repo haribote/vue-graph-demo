@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "sinon": "^4.1.2",
     "vue": "^2.5.2"
   },
   "devDependencies": {
@@ -48,6 +47,7 @@
     "rimraf": "^2.6.0",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "sinon": "^4.1.2",
     "ts-loader": "^3.1.1",
     "tslint": "^5.8.0",
     "tslint-config-standard": "^7.0.0",
