@@ -5,6 +5,14 @@ import { fetchNpbLeagues, fetchNpbTeams, fetchNpbNumberOfVisitorsHistory, fetchN
 
 import TabList from '../TabList/tab-list.vue'
 
+interface AppDataInterface {
+  leagues: NpbLeagueInterface[],
+  teams: NpbTeamInterface[],
+  numberOfVisitorsHistory: NpbSeasonInterface[],
+  pennantRaceHistory: NpbSeasonInterface[],
+  lineChartCurrentLeague: number
+}
+
 export default Vue.extend({
   name: 'app',
 
@@ -12,14 +20,38 @@ export default Vue.extend({
     TabList
   },
 
-  data () {
+  data (): AppDataInterface {
     return {
-      lineChartTabLabels: []
+      leagues: [],
+      teams: [],
+      numberOfVisitorsHistory: [],
+      pennantRaceHistory: [],
+      lineChartCurrentLeague: 0
+    }
+  },
+
+  computed: {
+    lineChartTabLabels (): string[] {
+      return this.leagues
+        .map(l => l.name)
+    },
+    lineChartTeamsOfCurrentLeague (): number[] {
+      return this.teams
+        .filter(t => t.league === this.lineChartCurrentLeague)
+        .map(t => t.id)
+    },
+    lineChartHistoryList (): any[] {
+      return this.numberOfVisitorsHistory
+        .map(h => h.data)
+        .reduce((memo, data) => {
+          data.forEach(d => memo[d.team] = [d.value].concat(memo[d.team]))
+          return memo
+        }, this.teams.map(() => []))
     }
   },
 
   methods: {
-    fetchAll () {
+    fetchAll (): Promise<[NpbLeagueInterface[], NpbTeamInterface[], NpbSeasonInterface[], NpbSeasonInterface[]]> {
       return Promise.all([
         fetchNpbLeagues(),
         fetchNpbTeams(),
@@ -29,18 +61,20 @@ export default Vue.extend({
     },
 
     handleClickLineChartTabItem (index: number) {
-      // TODO: 本実装時にテストを書く
-      console.log(index)
+      this.lineChartCurrentLeague = index
     }
   },
 
   created () {
     this.fetchAll()
       .then(resps => {
-        const [leagues] = resps
+        const [leagues, teams, numberOfVisitorsHistory, pennantRaceHistory] = resps
 
         Object.assign(this, {
-          lineChartTabLabels: leagues.map(league => league.name)
+          leagues,
+          teams,
+          numberOfVisitorsHistory,
+          pennantRaceHistory
         })
       })
       .catch(err => console.error(err.message))
