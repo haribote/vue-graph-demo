@@ -35,11 +35,6 @@ export default Vue.extend({
       return this.leagues
         .map(l => l.name)
     },
-    lineChartTeamsOfCurrentLeague (): number[] {
-      return this.teams
-        .filter(t => t.league === this.lineChartCurrentLeague)
-        .map(t => t.id)
-    },
     lineChartHistoryList (): any[] {
       return this.numberOfVisitorsHistory
         .map(h => h.data)
