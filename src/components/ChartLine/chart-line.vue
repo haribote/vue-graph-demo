@@ -1,6 +1,8 @@
 <template>
   <div class="chart-line">
-    <p>ChartLine</p>
+    <svg :viewBox="viewBox" :width="svgWidth" :height="svgHeight">
+
+    </svg>
   </div>
 </template>
 
