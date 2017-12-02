@@ -1,30 +1,39 @@
 import { expect } from 'chai'
-import { useFakeXMLHttpRequest, spy } from 'sinon'
+import { fakeServer, SinonFakeServer } from 'sinon'
 import { shallow } from 'vue-test-utils'
 
 import App from './app.vue'
 
 import { API_NPB_LEAGUES, API_NPB_TEAMS, API_NUMBER_OF_VISITORS_HISTORY, API_PENNANT_RACE_HISTORY } from '../../api/endpoints'
+import * as MOCK_NPB_LEAGUES from '../../../static/npb-leagues.json'
+import * as MOCK_NPB_TEAMS from '../../../static/npb-teams.json'
+import * as MOCK_NUMBER_OF_VISITORS_HISTORY from '../../../static/npb-number-of-visitors-history.json'
+import * as MOCK_PENNANT_RACE_HISTORY from '../../../static/npb-pennant-race-history.json'
+
+const RESPONSE = {
+  [API_NPB_LEAGUES]: MOCK_NPB_LEAGUES,
+  [API_NPB_TEAMS]: MOCK_NPB_TEAMS,
+  [API_NUMBER_OF_VISITORS_HISTORY]: MOCK_NUMBER_OF_VISITORS_HISTORY,
+  [API_PENNANT_RACE_HISTORY]: MOCK_PENNANT_RACE_HISTORY
+}
 
 describe('App.vue', () => {
   let wrapper
-  let xhr
-  let requests
+  let server: SinonFakeServer
 
   beforeEach(() => {
     wrapper = shallow(App)
   })
 
   before(() => {
-    xhr = useFakeXMLHttpRequest()
-    requests = []
-    xhr.onCreate = (req) => {
-      requests.push(req)
-    }
+    server = fakeServer.create()
+    Object.keys(RESPONSE)
+      .map(url => server.respondWith(url, JSON.stringify(RESPONSE[url])))
+    server.respondImmediately = true
   })
 
   after(() => {
-    xhr.restore()
+    server.restore()
   })
 
   it('should render app wrapper', () => {
@@ -56,10 +65,35 @@ describe('App.vue', () => {
       .to.be.true
   })
 
-  it('should request data', () => {
-    expect(requests[0].url).to.equal(API_NPB_LEAGUES)
-    expect(requests[1].url).to.equal(API_NPB_TEAMS)
-    expect(requests[2].url).to.equal(API_NUMBER_OF_VISITORS_HISTORY)
-    expect(requests[3].url).to.equal(API_PENNANT_RACE_HISTORY)
+  it('should sync data', (done) => {
+    setTimeout(() => {
+
+      expect(wrapper.vm.leagues)
+        .to.deep.equal(MOCK_NPB_LEAGUES['leagues'])
+
+      expect(wrapper.vm.teams)
+        .to.deep.equal(MOCK_NPB_TEAMS['teams'])
+
+      expect(wrapper.vm.numberOfVisitorsHistory)
+        .to.deep.equal(MOCK_NUMBER_OF_VISITORS_HISTORY['seasons'])
+
+      expect(wrapper.vm.pennantRaceHistory)
+        .to.deep.equal(MOCK_PENNANT_RACE_HISTORY['seasons'])
+
+      expect(wrapper.vm.lineChartTabLabels)
+        .to.deep.equal(MOCK_NPB_LEAGUES['leagues'].map(l => l.name))
+
+      expect(wrapper.vm.lineChartHistoryList)
+        .to.deep.equal(
+          MOCK_NUMBER_OF_VISITORS_HISTORY['seasons']
+            .map(h => h.data)
+            .reduce((memo, data) => {
+              data.forEach(d => memo[d.team] = [d.value].concat(memo[d.team]))
+              return memo
+            }, MOCK_NPB_TEAMS['teams'].map(() => []))
+        )
+
+      done()
+    }, 1)
   })
 })
