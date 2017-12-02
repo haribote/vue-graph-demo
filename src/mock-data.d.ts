@@ -1,3 +1,8 @@
+declare module '*.json' {
+  const content: any
+  export default content
+}
+
 interface NpbLeagueInterface {
   id: number
   name: string
