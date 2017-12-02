@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import 'core-js/fn/promise'
 
+import transformNumberOfVisitorsHistory from '../../core/transform-number-of-visitors-history'
+
 import { fetchNpbLeagues, fetchNpbTeams, fetchNpbNumberOfVisitorsHistory, fetchNpbPennantRaceHistory } from '../../api/driver'
 
 import TabList from '../TabList/tab-list.vue'
+import ChartLine from '../ChartLine/chart-line.vue'
 
 interface AppDataInterface {
   leagues: NpbLeagueInterface[],
@@ -36,12 +39,7 @@ export default Vue.extend({
         .map(l => l.name)
     },
     lineChartHistoryList (): any[] {
-      return this.numberOfVisitorsHistory
-        .map(h => h.data)
-        .reduce((memo, data) => {
-          data.forEach(d => memo[d.team] = [d.value].concat(memo[d.team]))
-          return memo
-        }, this.teams.map(() => []))
+      return transformNumberOfVisitorsHistory(this.numberOfVisitorsHistory, this.teams)
     }
   },
 

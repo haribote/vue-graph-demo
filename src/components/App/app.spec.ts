@@ -10,6 +10,8 @@ import * as MOCK_NPB_TEAMS from '../../../static/npb-teams.json'
 import * as MOCK_NUMBER_OF_VISITORS_HISTORY from '../../../static/npb-number-of-visitors-history.json'
 import * as MOCK_PENNANT_RACE_HISTORY from '../../../static/npb-pennant-race-history.json'
 
+import transformNumberOfVisitorsHistory from '../../core/transform-number-of-visitors-history'
+
 const RESPONSE = {
   [API_NPB_LEAGUES]: MOCK_NPB_LEAGUES,
   [API_NPB_TEAMS]: MOCK_NPB_TEAMS,
@@ -85,12 +87,7 @@ describe('App.vue', () => {
 
       expect(wrapper.vm.lineChartHistoryList)
         .to.deep.equal(
-          MOCK_NUMBER_OF_VISITORS_HISTORY['seasons']
-            .map(h => h.data)
-            .reduce((memo, data) => {
-              data.forEach(d => memo[d.team] = [d.value].concat(memo[d.team]))
-              return memo
-            }, MOCK_NPB_TEAMS['teams'].map(() => []))
+          transformNumberOfVisitorsHistory(MOCK_NUMBER_OF_VISITORS_HISTORY['seasons'], MOCK_NPB_TEAMS['teams'])
         )
 
       done()
