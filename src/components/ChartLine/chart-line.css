@@ -3,6 +3,12 @@
   margin-top: 25px;
 }
 
+.chart-line__unit {
+  margin-bottom: 0;
+  color: #999;
+  font-size: .75rem;
+}
+
 .chart-line__y-step-line {
   fill: none;
   stroke: #ccc;

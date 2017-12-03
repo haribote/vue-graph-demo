@@ -6,10 +6,16 @@ import floor from 'lodash.floor'
 
 import getDigits from '../../core/get-digits'
 
+import LegendList from '../LegendList/legend-list.vue'
+
 const Y_AXIS_LINES_LENGTH = 5
 
 export default Vue.extend({
   name: 'ChartLine',
+
+  components: {
+    LegendList
+  },
 
   props: {
     svgWidth: {
@@ -47,6 +53,10 @@ export default Vue.extend({
       default () {
         return []
       }
+    },
+    yAxisUnit: {
+      type: String,
+      default: ''
     }
   },
 
