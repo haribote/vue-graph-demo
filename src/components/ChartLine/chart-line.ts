@@ -167,5 +167,9 @@ export default Vue.extend({
           }
         })
     }
+  },
+
+  created () {
+    console.log(JSON.stringify(this.xAxisLabels))
   }
 })
