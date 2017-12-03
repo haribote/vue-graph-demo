@@ -7,8 +7,9 @@
 
     <div class="container">
       <h2>Line chart</h2>
-      <p>Under constructing...</p>
+      <p>History of NPB's annual visitors.</p>
       <TabList :labels="lineChartTabLabels" @click-item="handleClickLineChartTabItem" />
+      <ChartLine :series="lineChartHistoryList" :lines="lineChartPropsList" :xAxisLabels="lineChartXAxisLabelList" yAxisUnit="x 1000" />
     </div>
 
     <div class="container">

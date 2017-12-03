@@ -20,7 +20,8 @@ export default Vue.extend({
   name: 'app',
 
   components: {
-    TabList
+    TabList,
+    ChartLine
   },
 
   data (): AppDataInterface {
@@ -38,8 +39,22 @@ export default Vue.extend({
       return this.leagues
         .map(l => l.name)
     },
-    lineChartHistoryList (): any[] {
-      return transformNumberOfVisitorsHistory(this.numberOfVisitorsHistory, this.teams)
+    lineChartHistoryList (): number[][] {
+      return transformNumberOfVisitorsHistory(this.numberOfVisitorsHistory, this.teams, 1000)
+    },
+    lineChartPropsList (): { id: number, name: string, color: string, isVisible: boolean }[] {
+      return this.teams
+        .map(t => ({
+          id: t.id,
+          name: t.name,
+          color: t.color,
+          isVisible: t.league === this.lineChartCurrentLeague
+        }))
+    },
+    lineChartXAxisLabelList (): number[] {
+      return this.numberOfVisitorsHistory
+        .map(s => s.season)
+        .reverse()
     }
   },
 
