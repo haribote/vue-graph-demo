@@ -1,0 +1,21 @@
+.legend-list {}
+
+.legend-list ul {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+
+.legend-list li {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.legend-list li svg {
+  vertical-align: top;
+}
+
+.legend-list li path {
+  stroke-width: 2px;
+}

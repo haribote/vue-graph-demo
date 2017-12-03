@@ -1,0 +1,39 @@
+.chart-line {
+  position: relative;
+  margin-top: 25px;
+}
+
+.chart-line__unit {
+  margin-bottom: 0;
+  color: #999;
+  font-size: .75rem;
+}
+
+.chart-line__y-step-line {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1;
+}
+
+.chart-line__x-label,
+.chart-line__y-label {
+  fill: #999;
+  font-size: .75rem;
+  transform: translateY(1rem);
+}
+
+.chart-line__x-label {
+  text-anchor: middle;
+}
+
+.chart-line__series-line {
+  fill: none;
+  stroke: #333;
+  stroke-width: 2;
+}
+
+.chart-line__series-dot {}
+
+.chart-line__series-dot circle {
+  r: 3px;
+}
