@@ -1,6 +1,10 @@
 <template>
   <div class="chart-pie">
-    <p>ChartPie</p>
+    <svg :viewBox="viewBox" :width="svgWidth" :height="svgHeight">
+      <g class="chart-pie__series-pie">
+        <path v-for="(pie, i) in seriesPiePropsList" :key="i" :d="pie.d" :stroke="pie.color" :transform="pie.transform"></path>
+      </g>
+    </svg>
   </div>
 </template>
 
