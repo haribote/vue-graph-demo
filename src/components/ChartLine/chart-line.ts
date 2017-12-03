@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import range from 'lodash.range'
+import round from 'lodash.round'
 
 const Y_AXIS_LINES_LENGTH = 6
 
@@ -14,6 +15,14 @@ export default Vue.extend({
     svgHeight: {
       type: Number,
       default: 640
+    },
+    paddingLeft: {
+      type: Number,
+      default: 30
+    },
+    paddingRight: {
+      type: Number,
+      default: 30
     },
     series: {
       type: Array,
@@ -42,17 +51,43 @@ export default Vue.extend({
     valueReminder (): number {
       return this.maxValue - this.minValue
     },
-    yAxisStep (): number {
-      return this.svgHeight / this.valueReminder
+    percentOfSeries (): number[][] {
+      return this.series
+        .map(data => data
+          .map(value => (value - this.minValue) / this.valueReminder)
+        )
     },
     yAxisLinePropsList (): { y: number, d: string, transform: string }[] {
       const d = `M${0},${.5} H${this.svgWidth}`
       return range(0, this.svgHeight, this.svgHeight / (Y_AXIS_LINES_LENGTH - 1))
         .concat([this.svgHeight - 1])
-        .map(y => ({
-          y,
-          d,
-          transform: `translate(0, ${y})`
+        .map(y => {
+          const _y = round(y, 2)
+          return {
+            y: _y,
+            d,
+            transform: `translate(0, ${_y})`
+          }
+        })
+    },
+    chartWidth (): number {
+      return this.svgWidth - (this.paddingLeft + this.paddingRight)
+    },
+    xAxisStep (): number {
+      return this.chartWidth / Math.max(...this.series.map(data => data.length - 1))
+    },
+    seriesLineTransform (): string {
+      return `translate(${this.paddingLeft} ${this.svgHeight})`
+    },
+    seriesLinePropsList (): { points: string }[] {
+      return this.percentOfSeries
+        .map(data => ({
+          points: data
+            .map((value, index) => [
+              round(this.xAxisStep * index, 2),
+              round(this.svgHeight * value * -1, 2)
+            ].join(' '))
+            .join(' ')
         }))
     }
   }

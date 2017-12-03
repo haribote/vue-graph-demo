@@ -4,6 +4,9 @@
       <g class="chart-line__y-step-line">
         <path v-for="line in yAxisLinePropsList" :key="line.y" :d="line.d" :transform="line.transform"></path>
       </g>
+      <g class="chart-line__series-line" :transform="seriesLineTransform">
+        <polyline v-for="line in seriesLinePropsList" :points="line.points"></polyline>
+      </g>
     </svg>
   </div>
 </template>

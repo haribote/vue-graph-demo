@@ -7,3 +7,9 @@
   stroke: #ccc;
   stroke-width: 1;
 }
+
+.chart-line__series-line {
+  fill: none;
+  stroke: #333;
+  stroke-width: 1;
+}

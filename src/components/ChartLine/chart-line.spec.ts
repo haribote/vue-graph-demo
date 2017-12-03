@@ -87,13 +87,28 @@ describe('ChartLine', () => {
       .to.equal(wrapper.vm.maxValue - wrapper.vm.minValue)
   })
 
-  it('should return correct `yAxisStep`', () => {
-    expect(wrapper.vm.yAxisStep)
-      .to.equal(wrapper.vm.svgHeight / wrapper.vm.valueReminder)
-  })
-
   it('should return correct `yAxisLinePropsList`', () => {
     expect(wrapper.vm.yAxisLinePropsList)
       .to.deep.equal(mockYAxisLinePropsList)
+  })
+
+  it('should return correct `chartWidth`', () => {
+    expect(wrapper.vm.chartWidth)
+      .to.equal(wrapper.vm.svgWidth - (wrapper.vm.paddingLeft + wrapper.vm.paddingRight))
+  })
+
+  it('should return correct `xAxisStep`', () => {
+    expect(wrapper.vm.xAxisStep)
+      .to.equal(wrapper.vm.chartWidth / Math.max(...wrapper.vm.series.map(data => data.length)))
+  })
+
+  it('should return correct `seriesLineTransform`', () => {
+    expect(wrapper.vm.seriesLineTransform)
+      .to.equal(`translate(${wrapper.vm.paddingLeft} ${wrapper.vm.svgHeight})`)
+  })
+
+  it('should return correct `seriesLinePropsList`', () => {
+    expect(wrapper.vm.seriesLinePropsList.length)
+      .to.equal(12)
   })
 })
