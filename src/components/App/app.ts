@@ -9,6 +9,7 @@ import { fetchNpbLeagues, fetchNpbTeams, fetchNpbNumberOfVisitorsHistory, fetchN
 import TabList from '../TabList/tab-list.vue'
 import ChartLine from '../ChartLine/chart-line.vue'
 import ChartBar from '../ChartBar/chart-bar.vue'
+import ChartPie from '../ChartPie/chart-pie.vue'
 
 interface AppDataInterface {
   leagues: NpbLeagueInterface[]
@@ -16,8 +17,10 @@ interface AppDataInterface {
   numberOfVisitorsHistory: NpbSeasonInterface[]
   pennantRaceHistory: NpbSeasonInterface[]
   lineChartCurrentLeague: number
-  barChartCurrentLeague: number,
+  barChartCurrentLeague: number
   barChartCurrentSeason: number
+  pieChartCurrentLeague: number
+  pieChartCurrentSeason: number
 }
 
 export default Vue.extend({
@@ -26,7 +29,8 @@ export default Vue.extend({
   components: {
     TabList,
     ChartLine,
-    ChartBar
+    ChartBar,
+    ChartPie
   },
 
   data (): AppDataInterface {
@@ -37,7 +41,9 @@ export default Vue.extend({
       pennantRaceHistory: [],
       lineChartCurrentLeague: 0,
       barChartCurrentLeague: 0,
-      barChartCurrentSeason: null
+      barChartCurrentSeason: null,
+      pieChartCurrentLeague: 0,
+      pieChartCurrentSeason: null
     }
   },
 
@@ -63,7 +69,7 @@ export default Vue.extend({
         .map(s => s.season)
         .reverse()
     },
-    barChartSeasonOptionList (): number[] {
+    seasonOptionList (): number[] {
       return this.numberOfVisitorsHistory.map(h => h.season)
     },
     barChartCurrentSeasonList (): number[] {
@@ -82,6 +88,24 @@ export default Vue.extend({
           name: t.name,
           color: t.color,
           isVisible: t.league === this.barChartCurrentLeague
+        }))
+    },
+    pieChartCurrentSeasonList (): number[] {
+      const currentSeason = this.numberOfVisitorsHistory.find(h => h.season === this.pieChartCurrentSeason)
+      if (!currentSeason) {
+        return []
+      }
+      return currentSeason
+        .data
+        .map(d => d.value / 1000)
+    },
+    pipeChartPropsList (): { id: number, name: string, color: string, isVisible: boolean }[] {
+      return this.teams
+        .map(t => ({
+          id: t.id,
+          name: t.name,
+          color: t.color,
+          isVisible: t.league === this.pieChartCurrentLeague
         }))
     }
   },
@@ -102,6 +126,10 @@ export default Vue.extend({
 
     handleClickBarChartTabItem (index: number) {
       this.barChartCurrentLeague = index
+    },
+
+    handleClickPieChartTabItem (index: number) {
+      this.pieChartCurrentLeague = index
     }
   },
 
@@ -116,7 +144,8 @@ export default Vue.extend({
           teams,
           numberOfVisitorsHistory,
           pennantRaceHistory,
-          barChartCurrentSeason: lastSeason
+          barChartCurrentSeason: lastSeason,
+          pieChartCurrentSeason: lastSeason
         })
       })
       .catch(err => console.error(err.message))

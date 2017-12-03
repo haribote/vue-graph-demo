@@ -1,0 +1,12 @@
+.legend-list {
+  width: 25%;
+}
+
+.legend-list ul {
+  padding: 0;
+  list-style: none;
+}
+
+.legend-list li svg {
+  vertical-align: top;
+}

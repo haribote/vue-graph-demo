@@ -20,7 +20,7 @@
         <p class="comb-tab-select__select">
           <span>Season: </span>
           <select v-model="barChartCurrentSeason">
-            <option v-for="season in barChartSeasonOptionList" :key="season" :value="season">{{season}}</option>
+            <option v-for="season in seasonOptionList" :key="season" :value="season">{{season}}</option>
           </select>
         </p>
       </div>
@@ -29,7 +29,17 @@
 
     <div class="container">
       <h2>Pie chart</h2>
-      <p>Under constructing...</p>
+      <p>Annual visitors per team</p>
+      <div class="comb-tab-select">
+        <TabList :labels="tabLabels" @click-item="handleClickPieChartTabItem" />
+        <p class="comb-tab-select__select">
+          <span>Season: </span>
+          <select v-model="pieChartCurrentSeason">
+            <option v-for="season in seasonOptionList" :key="season" :value="season">{{season}}</option>
+          </select>
+        </p>
+      </div>
+      <ChartPie :series="pieChartCurrentSeasonList" :pies="pipeChartPropsList" />
     </div>
 
     <footer class="container">

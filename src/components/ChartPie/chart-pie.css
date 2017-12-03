@@ -1,0 +1,12 @@
+.chart-pie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-pie__series-pie {
+  fill: none;
+  stroke: #333;
+  stroke-width: 100px;
+  transform: rotate(-90deg)
+}
