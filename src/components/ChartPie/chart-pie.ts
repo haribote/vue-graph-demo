@@ -1,10 +1,16 @@
 import Vue from 'vue'
 import round from 'lodash.round'
 
+import LegendListVertical from '../LegendListVertical/legend-list-vertical.vue'
+
 const PIE2 = 2 * Math.PI
 
 export default Vue.extend({
   name: 'ChartPie',
+
+  components: {
+    LegendListVertical
+  },
 
   props: {
     svgWidth: {

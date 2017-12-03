@@ -1,4 +1,8 @@
-.chart-pie {}
+.chart-pie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .chart-pie__series-pie {
   fill: none;

@@ -5,6 +5,7 @@
         <path v-for="(pie, i) in seriesPiePropsList" :key="i" :d="pie.d" :stroke="pie.color" :transform="pie.transform"></path>
       </g>
     </svg>
+    <LegendListVertical :series="pies" />
   </div>
 </template>
 
