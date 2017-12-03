@@ -107,6 +107,11 @@ describe('ChartLine', () => {
       .to.equal(`translate(${wrapper.vm.paddingLeft} ${wrapper.vm.svgHeight})`)
   })
 
+  it('should return correct `seriesLinePointList`', () => {
+    expect(wrapper.vm.seriesLinePointList.length)
+      .to.equal(12)
+  })
+
   it('should return correct `seriesLinePropsList`', () => {
     expect(wrapper.vm.seriesLinePropsList.length)
       .to.equal(12)

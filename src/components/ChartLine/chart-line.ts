@@ -79,15 +79,18 @@ export default Vue.extend({
     seriesLineTransform (): string {
       return `translate(${this.paddingLeft} ${this.svgHeight})`
     },
-    seriesLinePropsList (): { points: string }[] {
+    seriesLinePointList (): number[][][] {
       return this.percentOfSeries
-        .map(data => ({
-          points: data
-            .map((value, index) => [
-              round(this.xAxisStep * index, 2),
-              round(this.svgHeight * value * -1, 2)
-            ].join(' '))
-            .join(' ')
+        .map(data => data
+          .map((value, index) => [
+            round(this.xAxisStep * index, 2),
+            round(this.svgHeight * value * -1, 2)
+          ]))
+    },
+    seriesLinePropsList (): { points: string }[] {
+      return this.seriesLinePointList
+        .map(points => ({
+          points: points.map(p => p.join(' ')).join(' ')
         }))
     }
   }
