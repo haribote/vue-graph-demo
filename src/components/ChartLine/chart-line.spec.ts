@@ -116,4 +116,9 @@ describe('ChartLine', () => {
     expect(wrapper.vm.seriesLinePropsList.length)
       .to.equal(12)
   })
+
+  it('should return correct `seriesDotPropsList`', () => {
+    expect(wrapper.vm.seriesLinePropsList.length)
+      .to.equal(12)
+  })
 })

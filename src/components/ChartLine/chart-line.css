@@ -13,3 +13,9 @@
   stroke: #333;
   stroke-width: 1;
 }
+
+.chart-line__series-dot {}
+
+.chart-line__series-dot circle {
+  r: 3px;
+}

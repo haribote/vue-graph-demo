@@ -92,6 +92,17 @@ export default Vue.extend({
         .map(points => ({
           points: points.map(p => p.join(' ')).join(' ')
         }))
+    },
+    seriesDotPropsList (): { transform: string }[][] {
+      return this.seriesLinePointList
+        .map(points => points
+          .map(p => {
+            const [x, y] = p
+            return {
+              transform: `translate(${x} ${y})`
+            }
+          })
+        )
     }
   }
 })
