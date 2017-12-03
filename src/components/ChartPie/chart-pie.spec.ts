@@ -7,7 +7,11 @@ describe('CartBar', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = shallow(ChartPie)
+    wrapper = shallow(ChartPie, {
+      propsData: {
+        series: []
+      }
+    })
   })
 
   it('should render `.chart-pie` element on root', () => {

@@ -7,7 +7,11 @@ describe('CartBar', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = shallow(ChartBar)
+    wrapper = shallow(ChartBar, {
+      propsData: {
+        series: []
+      }
+    })
   })
 
   it('should render `.chart-bar` element on root', () => {
