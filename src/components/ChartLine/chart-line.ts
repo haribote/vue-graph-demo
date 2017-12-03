@@ -32,11 +32,11 @@ export default Vue.extend({
     },
     paddingLeft: {
       type: Number,
-      default: 60
+      default: 80
     },
     paddingRight: {
       type: Number,
-      default: 30
+      default: 40
     },
     series: {
       type: Array,
@@ -108,9 +108,9 @@ export default Vue.extend({
         })
     },
     yAxisLabelPropsList (): any[] {
-      return [.5, 1]
+      return [0, .5, 1]
         .map(value => ({
-          value: this.maxValue * value,
+          value: this.minValue + this.valueReminder * value,
           transform: `translate(0, ${round(this.chartHeight * value * -1, 2)})`
         }))
     },
@@ -167,9 +167,5 @@ export default Vue.extend({
           }
         })
     }
-  },
-
-  created () {
-    console.log(JSON.stringify(this.xAxisLabels))
   }
 })
