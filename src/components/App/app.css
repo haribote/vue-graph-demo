@@ -38,3 +38,29 @@ body {
 #app footer {
   padding-bottom: 3.5rem;
 }
+
+@media screen and (max-width: 1140px) {
+  #app .container {
+    width: auto;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 2rem;
+  }
+  #app .comb-tab-select__select {
+    display: flex;
+    align-items: center;
+    position: static;
+    transform: none;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+  #app .comb-tab-select span {
+    width: 20%;
+  }
+  #app .comb-tab-select select {
+    width: 80%;
+    height: 2rem;
+    font-size: 1rem;
+    line-height: 2rem;
+  }
+}

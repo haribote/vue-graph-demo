@@ -10,3 +10,17 @@
   stroke-width: 100px;
   transform: rotate(-90deg)
 }
+
+@media screen and (max-width: 1140px) {
+  .chart-pie {
+    margin-top: 1rem;
+    display: block;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+  }
+  .legend-list {
+    display: none;
+  }
+}
