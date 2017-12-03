@@ -4,6 +4,11 @@
       <g class="chart-line__y-step-line">
         <path v-for="line in yAxisLinePropsList" :key="line.y" :d="line.d" :transform="line.transform"></path>
       </g>
+      <g class="chart-line__y-label">
+        <g :transform="yAxisLabelTransform">
+          <text x="0" y="0" v-for="label in yAxisLabelPropsList" :key="label.value" :transform="label.transform">{{label.value}}</text>
+        </g>
+      </g>
       <g :transform="seriesLineTransform">
         <g class="chart-line__series-line">
           <polyline v-for="(line, i) in seriesLinePropsList" v-if="line.isVisible" :key="i" :points="line.points" :stroke="line.color"></polyline>

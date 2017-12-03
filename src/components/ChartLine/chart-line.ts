@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import range from 'lodash.range'
 import round from 'lodash.round'
+import ceil from 'lodash.ceil'
+import floor from 'lodash.floor'
 
-const Y_AXIS_LINES_LENGTH = 6
+import getDigits from '../../core/get-digits'
+
+const Y_AXIS_LINES_LENGTH = 5
 
 export default Vue.extend({
   name: 'ChartLine',
@@ -18,7 +22,7 @@ export default Vue.extend({
     },
     paddingLeft: {
       type: Number,
-      default: 30
+      default: 60
     },
     paddingRight: {
       type: Number,
@@ -53,10 +57,10 @@ export default Vue.extend({
       return Math.min(...this.allValues)
     },
     maxValue (): number {
-      return Math.ceil(this._maxValue + (this._maxValue - this._minValue) * .1)
+      return ceil(this._maxValue, (getDigits(this._maxValue) - 2) * -1)
     },
     minValue (): number {
-      return Math.floor(this._minValue - (this._maxValue - this._minValue) * .1)
+      return floor(this._minValue, (getDigits(this._minValue) - 2) * -1)
     },
     valueReminder (): number {
       return this.maxValue - this.minValue
@@ -79,6 +83,16 @@ export default Vue.extend({
             transform: `translate(0, ${_y})`
           }
         })
+    },
+    yAxisLabelPropsList (): any[] {
+      return [.5, 1]
+        .map(value => ({
+          value: this.maxValue * value,
+          transform: `translate(0, ${round(this.svgHeight * value * -1, 2)})`
+        }))
+    },
+    yAxisLabelTransform (): string {
+      return `translate(0 ${this.svgHeight})`
     },
     chartWidth (): number {
       return this.svgWidth - (this.paddingLeft + this.paddingRight)

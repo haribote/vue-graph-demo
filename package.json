@@ -12,9 +12,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@types/lodash.ceil": "^4.0.3",
+    "@types/lodash.floor": "^4.0.3",
     "@types/lodash.range": "^3.2.3",
     "@types/lodash.round": "^4.0.3",
     "axios": "^0.17.1",
+    "lodash.ceil": "^4.0.4",
+    "lodash.floor": "^4.0.4",
     "lodash.range": "^3.2.0",
     "lodash.round": "^4.0.4",
     "vue": "^2.5.2"

@@ -1,11 +1,14 @@
 import { expect } from 'chai'
 import { shallow } from 'vue-test-utils'
+import ceil from 'lodash.ceil'
+import floor from 'lodash.floor'
 
 import ChartLine from './chart-line.vue'
 import * as MOCK_NPB_TEAMS from '../../../static/npb-teams.json'
 import * as MOCK_NUMBER_OF_VISITORS_HISTORY from '../../../static/npb-number-of-visitors-history.json'
 
 import transformNumberOfVisitorsHistory from '../../core/transform-number-of-visitors-history'
+import getDigits from '../../core/get-digits'
 
 const mockSeries = transformNumberOfVisitorsHistory(MOCK_NUMBER_OF_VISITORS_HISTORY['seasons'], MOCK_NPB_TEAMS['teams'])
 const mockAllValues = [1260439, 1223915, 1322004, 1526932, 1450164, 1998188, 2000912, 2049784, 2058381, 2010772, 2408993, 2468442, 2535877, 2492983, 2526792, 2771603, 2689593, 2878352, 2910562, 3034626, 1565598, 1904781, 2110266, 2157331, 2177554, 1855655, 1897789, 1959943, 2078981, 2086410, 1438467, 1703734, 1767220, 1794475, 1608751, 1600841, 1498365, 1616827, 1618194, 1673219, 1281087, 1450233, 1524149, 1620961, 1770108, 1432695, 1438775, 1657511, 1779460, 1862731, 1425728, 1564528, 1813800, 1939146, 1979446, 3008197, 3018284, 3001187, 3004108, 2958890]
@@ -72,12 +75,12 @@ describe('ChartLine', () => {
 
   it('should return correct `maxValue`', () => {
     expect(wrapper.vm.maxValue)
-      .to.equal(Math.ceil(wrapper.vm.maxValue._maxValue + (wrapper.vm.maxValue._maxValue - wrapper.vm.maxValue._minValue) * .1))
+      .to.equal(ceil(wrapper.vm._maxValue, (getDigits(wrapper.vm._maxValue) - 2) * -1))
   })
 
   it('should return correct `minValue`', () => {
     expect(wrapper.vm.minValue)
-      .to.equal(Math.floor(wrapper.vm._minValue - (wrapper.vm._maxValue - wrapper.vm._minValue) * .1))
+      .to.equal(floor(wrapper.vm.minValue._minValue, (getDigits(wrapper.vm.minValue._minValue) - 2) * -1))
   })
 
   it('should return correct `valueReminder`', () => {

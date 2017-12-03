@@ -8,6 +8,12 @@
   stroke-width: 1;
 }
 
+.chart-line__y-label {
+  fill: #999;
+  font-size: .75rem;
+  transform: translateY(1rem);
+}
+
 .chart-line__series-line {
   fill: none;
   stroke: #333;
