@@ -1,0 +1,76 @@
+{
+  "teams": [
+    {
+      "id": 0,
+      "name": "Marines",
+      "color": "#000000",
+      "league": 0
+    },
+    {
+      "id": 1,
+      "name": "Dragons",
+      "color": "#003595",
+      "league": 1
+    },
+    {
+      "id": 2,
+      "name": "Hawks",
+      "color": "#FBC700",
+      "league": 0
+    },
+    {
+      "id": 3,
+      "name": "Tigers",
+      "color": "#FFE100",
+      "league": 1
+    },
+    {
+      "id": 4,
+      "name": "Carp",
+      "color": "#E50012",
+      "league": 1
+    },
+    {
+      "id": 5,
+      "name": "Fighters",
+      "color": "#00508F",
+      "league": 0
+    },
+    {
+      "id": 6,
+      "name": "Buffaloes",
+      "color": "#9E751E",
+      "league": 0
+    },
+    {
+      "id": 7,
+      "name": "Lions",
+      "color": "#0079c2",
+      "league": 0
+    },
+    {
+      "id": 8,
+      "name": "Golden Eagles",
+      "color": "#870010",
+      "league": 0
+    },
+    {
+      "id": 9,
+      "name": "Swallows",
+      "color": "#96c800",
+      "league": 1
+    },
+    {
+      "id": 10,
+      "name": "BayStars",
+      "color": "#0052CD",
+      "league": 1
+    },
+    {
+      "id": 11,
+      "name": "Giants",
+      "color": "#FF7820",
+      "league": 1
+    }
+  ]
+}
