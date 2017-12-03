@@ -82,7 +82,7 @@ describe('App.vue', () => {
       expect(wrapper.vm.pennantRaceHistory)
         .to.deep.equal(MOCK_PENNANT_RACE_HISTORY['seasons'])
 
-      expect(wrapper.vm.lineChartTabLabels)
+      expect(wrapper.vm.tabLabels)
         .to.deep.equal(MOCK_NPB_LEAGUES['leagues'].map(l => l.name))
 
       expect(wrapper.vm.lineChartHistoryList)

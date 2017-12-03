@@ -8,13 +8,15 @@
     <div class="container">
       <h2>Line chart</h2>
       <p>History of NPB's annual visitors.</p>
-      <TabList :labels="lineChartTabLabels" @click-item="handleClickLineChartTabItem" />
+      <TabList :labels="tabLabels" @click-item="handleClickLineChartTabItem" />
       <ChartLine :series="lineChartHistoryList" :lines="lineChartPropsList" :xAxisLabels="lineChartXAxisLabelList" yAxisUnit="x 1000" />
     </div>
 
     <div class="container">
       <h2>Bar chart</h2>
-      <p>Under constructing...</p>
+      <p>Annual visitors per team</p>
+      <TabList :labels="tabLabels" @click-item="handleClickBarChartTabItem" />
+      <ChartBar :series="barChartCurrentSeasonList" :lines="barChartPropsList" yAxisUnit="x 1000" />
     </div>
 
     <div class="container">
