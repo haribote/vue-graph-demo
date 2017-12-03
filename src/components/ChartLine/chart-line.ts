@@ -27,6 +27,12 @@ export default Vue.extend({
     series: {
       type: Array,
       required: true
+    },
+    lines: {
+      type: Array,
+      default () {
+        return []
+      }
     }
   },
 
@@ -87,22 +93,29 @@ export default Vue.extend({
             round(this.svgHeight * value * -1, 2)
           ]))
     },
-    seriesLinePropsList (): { points: string }[] {
+    seriesLinePropsList (): { isVisible: boolean, color: string, points: string }[] {
       return this.seriesLinePointList
-        .map(points => ({
-          points: points.map(p => p.join(' ')).join(' ')
-        }))
+        .map((points, i) => {
+          const { color, isVisible } = this.lines[i]
+
+          return {
+            isVisible,
+            color,
+            points: points.map(p => p.join(' ')).join(' ')
+          }
+        })
     },
     seriesDotPropsList (): { transform: string }[][] {
       return this.seriesLinePointList
-        .map(points => points
-          .map(p => {
-            const [x, y] = p
-            return {
-              transform: `translate(${x} ${y})`
-            }
-          })
-        )
+        .map((points, i) => {
+          return points
+            .map(p => {
+              const [x, y] = p
+              return {
+                transform: `translate(${x} ${y})`
+              }
+            })
+        })
     }
   }
 })

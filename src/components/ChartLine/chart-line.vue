@@ -6,10 +6,10 @@
       </g>
       <g :transform="seriesLineTransform">
         <g class="chart-line__series-line">
-          <polyline v-for="line in seriesLinePropsList" :points="line.points"></polyline>
+          <polyline v-for="(line, i) in seriesLinePropsList" v-if="line.isVisible" :key="i" :points="line.points" :stroke="line.color"></polyline>
         </g>
         <g class="chart-line__series-dot">
-          <g v-for="(series, i) in seriesDotPropsList" :key="i">
+          <g v-for="(series, i) in seriesDotPropsList" v-if="seriesLinePropsList[i].isVisible" :key="i"  :fill="seriesLinePropsList[i].color">
             <circle v-for="(dot, j) in series" :key="j" cx="0" cy="0" :transform="dot.transform"></circle>
           </g>
         </g>
