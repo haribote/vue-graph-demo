@@ -1,3 +1,9 @@
 .chart-line {
   margin-top: 25px;
 }
+
+.chart-line__y-step-line {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1;
+}
