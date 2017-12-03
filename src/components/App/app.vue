@@ -15,7 +15,15 @@
     <div class="container">
       <h2>Bar chart</h2>
       <p>Annual visitors per team</p>
-      <TabList :labels="tabLabels" @click-item="handleClickBarChartTabItem" />
+      <div class="comb-tab-select">
+        <TabList :labels="tabLabels" @click-item="handleClickBarChartTabItem" />
+        <p class="comb-tab-select__select">
+          <span>Season: </span>
+          <select v-model="barChartCurrentSeason">
+            <option v-for="season in barChartSeasonOptionList" :key="season" :value="season">{{season}}</option>
+          </select>
+        </p>
+      </div>
       <ChartBar :series="barChartCurrentSeasonList" :lines="barChartPropsList" yAxisUnit="x 1000" />
     </div>
 

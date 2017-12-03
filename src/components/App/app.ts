@@ -63,6 +63,9 @@ export default Vue.extend({
         .map(s => s.season)
         .reverse()
     },
+    barChartSeasonOptionList (): number[] {
+      return this.numberOfVisitorsHistory.map(h => h.season)
+    },
     barChartCurrentSeasonList (): number[] {
       const currentSeason = this.numberOfVisitorsHistory.find(h => h.season === this.barChartCurrentSeason)
       if (!currentSeason) {

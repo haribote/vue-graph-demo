@@ -13,6 +13,26 @@ body {
   margin-right: auto;
 }
 
+#app .comb-tab-select {
+  position: relative;
+}
+
+#app .comb-tab-select__select {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#app .comb-tab-select select {
+  min-width: 10rem;
+  height: 2rem;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
 #app header {}
 
 #app footer {
