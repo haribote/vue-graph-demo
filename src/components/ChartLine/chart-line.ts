@@ -46,13 +46,17 @@ export default Vue.extend({
           return memo.concat(data)
         }, [])
     },
+    _maxValue (): number {
+      return Math.max(...this.allValues)
+    },
+    _minValue (): number {
+      return Math.min(...this.allValues)
+    },
     maxValue (): number {
-      const _maxValue = Math.max(...this.allValues)
-      return Math.ceil(_maxValue * 1.1)
+      return Math.ceil(this._maxValue + (this._maxValue - this._minValue) * .1)
     },
     minValue (): number {
-      const _minValue = Math.min(...this.allValues)
-      return Math.floor(_minValue * .9)
+      return Math.floor(this._minValue - (this._maxValue - this._minValue) * .1)
     },
     valueReminder (): number {
       return this.maxValue - this.minValue

@@ -71,15 +71,13 @@ describe('ChartLine', () => {
   })
 
   it('should return correct `maxValue`', () => {
-    const _maxValue = Math.max(...mockAllValues)
     expect(wrapper.vm.maxValue)
-      .to.equal(Math.ceil(_maxValue + _maxValue * .1))
+      .to.equal(Math.ceil(wrapper.vm.maxValue._maxValue + (wrapper.vm.maxValue._maxValue - wrapper.vm.maxValue._minValue) * .1))
   })
 
   it('should return correct `minValue`', () => {
-    const _minValue = Math.min(...mockAllValues)
     expect(wrapper.vm.minValue)
-      .to.equal(Math.floor(_minValue - _minValue * .1))
+      .to.equal(Math.floor(wrapper.vm._minValue - (wrapper.vm._maxValue - wrapper.vm._minValue) * .1))
   })
 
   it('should return correct `valueReminder`', () => {
