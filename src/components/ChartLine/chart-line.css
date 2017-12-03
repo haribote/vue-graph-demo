@@ -38,3 +38,16 @@
 .chart-line__series-dot circle {
   r: 3px;
 }
+
+@media screen and (max-width: 1140px) {
+  .chart-line {
+    margin-top: 1rem;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+  }
+  .legend-list {
+    display: none;
+  }
+}

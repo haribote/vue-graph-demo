@@ -30,3 +30,13 @@
   fill: none;
   stroke-width: 100px;
 }
+
+@media screen and (max-width: 1140px) {
+  .chart-bar {
+    margin-top: 1rem;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+  }
+}
