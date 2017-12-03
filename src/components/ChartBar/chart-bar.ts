@@ -1,21 +1,15 @@
 import Vue from 'vue'
-import range from 'lodash.range'
-import round from 'lodash.round'
 import ceil from 'lodash.ceil'
+import round from 'lodash.round'
+import range from 'lodash.range'
 import floor from 'lodash.floor'
 
 import getDigits from '../../core/get-digits'
 
-import LegendList from '../LegendList/legend-list.vue'
-
 const Y_AXIS_LINES_LENGTH = 5
 
 export default Vue.extend({
-  name: 'ChartLine',
-
-  components: {
-    LegendList
-  },
+  name: 'ChartBar',
 
   props: {
     svgWidth: {
@@ -32,23 +26,17 @@ export default Vue.extend({
     },
     paddingLeft: {
       type: Number,
-      default: 80
+      default: 120
     },
     paddingRight: {
       type: Number,
-      default: 40
+      default: 90
     },
     series: {
       type: Array,
       required: true
     },
     lines: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
-    xAxisLabels: {
       type: Array,
       default () {
         return []
@@ -67,17 +55,22 @@ export default Vue.extend({
     chartHeight (): number {
       return this.svgHeight - this.paddingBottom
     },
-    allValues (): number[] {
-      return this.series
-        .reduce((memo, data) => {
-          return memo.concat(data)
-        }, [])
+    visibleLines (): { id: number, name: string, color: string, isVisible: boolean }[] {
+      return this.lines
+        .filter(line => line.isVisible)
+    },
+    visibleSeries (): number[] {
+      if (this.lines.length < 1) {
+        return this.series
+      }
+      return this.visibleLines
+        .map(line => this.series[line.id])
     },
     _maxValue (): number {
-      return Math.max(...this.allValues)
+      return Math.max(...this.series)
     },
     _minValue (): number {
-      return Math.min(...this.allValues)
+      return Math.min(...this.series)
     },
     maxValue (): number {
       return ceil(this._maxValue, (getDigits(this._maxValue) - 2) * -1)
@@ -88,11 +81,9 @@ export default Vue.extend({
     valueReminder (): number {
       return this.maxValue - this.minValue
     },
-    percentOfSeries (): number[][] {
-      return this.series
-        .map(data => data
-          .map(value => (value - this.minValue) / this.valueReminder)
-        )
+    percentOfSeries (): number[] {
+      return this.visibleSeries
+        .map(value => (value - this.minValue) / this.valueReminder)
     },
     yAxisLinePropsList (): { y: number, d: string, transform: string }[] {
       const d = `M${0},${.5} H${this.svgWidth}`
@@ -121,51 +112,37 @@ export default Vue.extend({
       return this.svgWidth - (this.paddingLeft + this.paddingRight)
     },
     xAxisStep (): number {
-      return this.chartWidth / Math.max(...this.series.map(data => data.length - 1))
+      return this.chartWidth / (this.visibleSeries.length - 1)
     },
     seriesLineTransform (): string {
       return `translate(${this.paddingLeft} ${this.chartHeight})`
     },
-    seriesLinePointList (): number[][][] {
+    seriesLinePointList (): number[][] {
       return this.percentOfSeries
-        .map(data => data
-          .map((value, index) => [
-            round(this.xAxisStep * index, 2),
-            round(this.chartHeight * value * -1, 2)
-          ]))
+        .map((value, index) => [
+          round(this.xAxisStep * index, 2),
+          round(this.chartHeight * value * -1, 2)
+        ])
     },
-    seriesLinePropsList (): { isVisible: boolean, color: string, points: string }[] {
+    seriesLinePropsList (): { color: string, points?: string }[] {
       return this.seriesLinePointList
         .map((points, i) => {
-          const { color, isVisible } = this.lines[i]
+          const { color } = this.visibleLines[i]
+          const [x, h] = points
 
           return {
-            isVisible,
             color,
-            points: points.map(p => p.join(' ')).join(' ')
+            d: `M${0},${0} V${h}`,
+            transform: `translate(${x})`
           }
-        })
-    },
-    seriesDotPropsList (): { transform: string }[][] {
-      return this.seriesLinePointList
-        .map(points => {
-          return points
-            .map(p => {
-              const [x, y] = p
-              return {
-                transform: `translate(${x} ${y})`
-              }
-            })
         })
     },
     xAxisLabelPropsList (): any[] {
-      return this.xAxisLabels
-        .map((label, index) => {
-          return {
-            value: label,
-            transform: `translate(${round(this.xAxisStep * index, 2)})`
-          }
-        })
+      return this.visibleLines
+        .map((line, index) => ({
+          value: line.name,
+          transform: `translate(${round(this.xAxisStep * index, 2)})`
+        }))
     }
   }
 })

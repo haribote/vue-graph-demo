@@ -8,13 +8,23 @@
     <div class="container">
       <h2>Line chart</h2>
       <p>History of NPB's annual visitors.</p>
-      <TabList :labels="lineChartTabLabels" @click-item="handleClickLineChartTabItem" />
+      <TabList :labels="tabLabels" @click-item="handleClickLineChartTabItem" />
       <ChartLine :series="lineChartHistoryList" :lines="lineChartPropsList" :xAxisLabels="lineChartXAxisLabelList" yAxisUnit="x 1000" />
     </div>
 
     <div class="container">
       <h2>Bar chart</h2>
-      <p>Under constructing...</p>
+      <p>Annual visitors per team</p>
+      <div class="comb-tab-select">
+        <TabList :labels="tabLabels" @click-item="handleClickBarChartTabItem" />
+        <p class="comb-tab-select__select">
+          <span>Season: </span>
+          <select v-model="barChartCurrentSeason">
+            <option v-for="season in barChartSeasonOptionList" :key="season" :value="season">{{season}}</option>
+          </select>
+        </p>
+      </div>
+      <ChartBar :series="barChartCurrentSeasonList" :lines="barChartPropsList" yAxisUnit="x 1000" />
     </div>
 
     <div class="container">
