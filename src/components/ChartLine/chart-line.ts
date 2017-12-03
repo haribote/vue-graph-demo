@@ -20,6 +20,10 @@ export default Vue.extend({
       type: Number,
       default: 640
     },
+    paddingBottom: {
+      type: Number,
+      default: 24
+    },
     paddingLeft: {
       type: Number,
       default: 60
@@ -37,12 +41,21 @@ export default Vue.extend({
       default () {
         return []
       }
+    },
+    xAxisLabels: {
+      type: Array,
+      default () {
+        return []
+      }
     }
   },
 
   computed: {
     viewBox (): string {
       return `${0} ${0} ${this.svgWidth} ${this.svgHeight}`
+    },
+    chartHeight (): number {
+      return this.svgHeight - this.paddingBottom
     },
     allValues (): number[] {
       return this.series
@@ -73,8 +86,8 @@ export default Vue.extend({
     },
     yAxisLinePropsList (): { y: number, d: string, transform: string }[] {
       const d = `M${0},${.5} H${this.svgWidth}`
-      return range(0, this.svgHeight, this.svgHeight / (Y_AXIS_LINES_LENGTH - 1))
-        .concat([this.svgHeight - 1])
+      return range(0, this.chartHeight, this.chartHeight / (Y_AXIS_LINES_LENGTH - 1))
+        .concat([this.chartHeight])
         .map(y => {
           const _y = round(y, 2)
           return {
@@ -88,11 +101,11 @@ export default Vue.extend({
       return [.5, 1]
         .map(value => ({
           value: this.maxValue * value,
-          transform: `translate(0, ${round(this.svgHeight * value * -1, 2)})`
+          transform: `translate(0, ${round(this.chartHeight * value * -1, 2)})`
         }))
     },
     yAxisLabelTransform (): string {
-      return `translate(0 ${this.svgHeight})`
+      return `translate(0 ${this.chartHeight})`
     },
     chartWidth (): number {
       return this.svgWidth - (this.paddingLeft + this.paddingRight)
@@ -101,14 +114,14 @@ export default Vue.extend({
       return this.chartWidth / Math.max(...this.series.map(data => data.length - 1))
     },
     seriesLineTransform (): string {
-      return `translate(${this.paddingLeft} ${this.svgHeight})`
+      return `translate(${this.paddingLeft} ${this.chartHeight})`
     },
     seriesLinePointList (): number[][][] {
       return this.percentOfSeries
         .map(data => data
           .map((value, index) => [
             round(this.xAxisStep * index, 2),
-            round(this.svgHeight * value * -1, 2)
+            round(this.chartHeight * value * -1, 2)
           ]))
     },
     seriesLinePropsList (): { isVisible: boolean, color: string, points: string }[] {
@@ -125,7 +138,7 @@ export default Vue.extend({
     },
     seriesDotPropsList (): { transform: string }[][] {
       return this.seriesLinePointList
-        .map((points, i) => {
+        .map(points => {
           return points
             .map(p => {
               const [x, y] = p
@@ -133,6 +146,15 @@ export default Vue.extend({
                 transform: `translate(${x} ${y})`
               }
             })
+        })
+    },
+    xAxisLabelPropsList (): any[] {
+      return this.xAxisLabels
+        .map((label, index) => {
+          return {
+            value: label,
+            transform: `translate(${round(this.xAxisStep * index, 2)})`
+          }
         })
     }
   }

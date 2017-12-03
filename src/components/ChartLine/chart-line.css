@@ -1,4 +1,5 @@
 .chart-line {
+  position: relative;
   margin-top: 25px;
 }
 
@@ -8,10 +9,15 @@
   stroke-width: 1;
 }
 
+.chart-line__x-label,
 .chart-line__y-label {
   fill: #999;
   font-size: .75rem;
   transform: translateY(1rem);
+}
+
+.chart-line__x-label {
+  text-anchor: middle;
 }
 
 .chart-line__series-line {

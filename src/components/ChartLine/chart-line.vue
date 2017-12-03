@@ -19,6 +19,11 @@
           </g>
         </g>
       </g>
+      <g class="chart-line__x-label">
+        <g :transform="seriesLineTransform">
+          <text x="0" y="0" v-for="label in xAxisLabelPropsList" :key="label.value" :transform="label.transform">{{label.value}}</text>
+        </g>
+      </g>
     </svg>
   </div>
 </template>
