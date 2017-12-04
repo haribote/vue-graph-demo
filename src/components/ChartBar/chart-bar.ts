@@ -124,7 +124,7 @@ export default Vue.extend({
           round(this.chartHeight * value * -1, 2)
         ])
     },
-    seriesLinePropsList (): { color: string, points?: string }[] {
+    seriesLinePropsList (): { color: string, d: string, transform: string }[] {
       return this.seriesLinePointList
         .map((points, i) => {
           const { color } = this.visibleLines[i]
