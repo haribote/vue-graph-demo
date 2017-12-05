@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import 'core-js/fn/number/is-finite'
 import ceil from 'lodash.ceil'
 import round from 'lodash.round'
 import range from 'lodash.range'
@@ -35,6 +36,9 @@ export default Vue.extend({
     series: {
       type: Array,
       required: true
+    },
+    forcedMinValue: {
+      type: Number
     },
     lines: {
       type: Array,
@@ -76,6 +80,9 @@ export default Vue.extend({
       return ceil(this._maxValue, (getDigits(this._maxValue) - 2) * -1)
     },
     minValue (): number {
+      if (Number.isFinite(this.forcedMinValue)) {
+        return this.forcedMinValue
+      }
       return floor(this._minValue, (getDigits(this._minValue) - 2) * -1)
     },
     valueReminder (): number {
