@@ -24,7 +24,7 @@
           </select>
         </p>
       </div>
-      <ChartBar :series="barChartCurrentSeasonList" :lines="barChartPropsList" yAxisUnit="x 1000" />
+      <ChartBar :series="barChartCurrentSeasonList" :forcedMinValue="0" :lines="barChartPropsList" yAxisUnit="x 1000" />
     </div>
 
     <div class="container">
